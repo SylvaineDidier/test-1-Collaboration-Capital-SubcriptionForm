@@ -5,10 +5,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsService } from './services/forms.service';
+import { FormPageComponent } from './form-page/form-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormPageComponent
   ],
   imports: [
     BrowserModule,

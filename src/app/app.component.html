@@ -1,128 +1,14 @@
-
-<div class="container">
-  <div class="row justify-content-md-center pt-4 ">
-    <div class="col-md-6 mx-auto ">
-      <div class="card bg-light mb-3" *ngIf="step == 0">
-        <div class="card-header">Subscription parameters</div>
-        <div class="card-body" [formGroup]="subscriptionParamsForm" >
-          <div class="mb-3">
-            <label  class="form-label">Duration</label>
-            <select class="form-select form-select-lg" (change)="calculateTotalPrice()" formControlName="duration" >
-              <option *ngFor="let plan of plans; let index = index" [value]="index"  >{{plan.duration_months}} Months </option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label  class="form-label">Amount of gigabytes</label>
-            <select (change)="calculateTotalPrice()" formControlName="amount_of_gigabytes" class="form-select form-select-lg" >
-              <option [value]="5">5</option>
-              <option [value]="10">10</option>
-              <option [value]="50">50</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label  class="form-label">Upfront payment</label>
-            <select (change)="calculateTotalPrice()" formControlName="upfront_payment" class="form-select form-select-lg" >
-              <option [value]="true">Yes</option>
-              <option [value]="false">No</option>
-            </select>
-          </div>
-
-          <ng-container  [ngTemplateOutlet]="SubcriptionTmpl"></ng-container>
-        </div>
-
-
-      </div>
-     
-
-      <div class="card bg-light mb-3" *ngIf="step == 1">
-        <div class="card-header">Payment data</div>
-        <div class="card-body" [formGroup]="paymentDataForm" >
-          <div class="mb-3">
-            <label  class="form-label">Credit card number</label>
-            <input type="number" class="form-control" formControlName="cc_number"  placeholder="Credit card number">
-              <!-- <small id="helpId" class="form-text text-muted">Your </small> -->
-          </div>
-          <div class="mb-3">
-            <label  class="form-label">Credit card expiration date</label>
-            <input type="month" class="form-control" formControlName="cc_expiration_date"   placeholder="Credit card expiration date">
-              <!-- <small id="helpId" class="form-text text-muted">Enter the date</small> -->
-          </div>
-          <div class="mb-3">
-            <label  class="form-label">Credit card security code</label>
-            <input type="number" class="form-control" formControlName="cc_security_code"   placeholder="Credit card security code">
-              <small id="helpId" class="form-text text-muted">3 digits</small>
-          </div>
-
-
-          <ng-container  [ngTemplateOutlet]="SubcriptionTmpl"></ng-container>
-          
-        </div>
-      </div>
-
-
-      <div class="card bg-light mb-3" *ngIf="step == 2">
-        <div class="card-header">Confirmation</div>
-        <div class="card-body" [formGroup]="confirmationForm" >
-          <div class="bg-secondary text-white-50 text-emphasis-warning p-2">
-            <span class="text-white fs-5 fw-bold text-center">Recap</span> <br>
-            <span class="badge bg-info">Duration:</span>
-            <span class="badge bg-secondary">{{currentSubs.duration_months}} months </span> <br>
-            <span class="badge bg-info">Price per gigabytes:</span> 
-            <span class="badge bg-secondary">{{currentSubs.price_usd_per_gb| currency}}</span>  <br>
-
-            <span class="badge bg-info">Amount of gigabytes :</span> 
-            <span class="badge bg-secondary">{{subscriptionParamsForm.value.amount_of_gigabytes}} months </span> <br>
-
-            <span class="badge bg-info">Upfront payment :</span> 
-            <span class="badge bg-secondary">{{subscriptionParamsForm.value.upfront_payment? 'Yes':'No'}} </span> <br>
-
-            <span class="badge bg-info">Card number :</span> 
-            <span class="badge bg-secondary">{{paymentDataForm.value.cc_number}} </span> <br>
-            <span class="badge bg-info">Final price:</span>  <span class="badge bg-black">{{totalPrice| currency}}</span> 
-          </div>
-
-          <div class="my-3 input-floating">
-            <label  class="form-label">Your email</label>
-            <input type="email" class="form-control" formControlName="email"  aria-describedby="helpId" placeholder="Your email">
-              <!-- <small id="helpId" class="form-text text-muted">Enter the date</small> -->
-          </div>
-          
-          <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" formControlName="terms" > Accept terms and conditions
-            </label>
-          </div>
-          
-          <div class="d-grid gap-2">
-            <button type="button" [disabled]="confirmationForm.invalid" class="btn btn-success">Confirmation</button>
-          </div>
-          
-        </div>
-      </div>
-
-
-      <div>
-        <button (click)="prev()" [disabled]="step== 0" class="btn btn-primary btn-sm mr-3" href="#" role="button"> Prev</button> 
-        <button (click)="next()" *ngIf="step < 2" [disabled]="step== 2 || (subscriptionParamsForm.invalid && step==0) || (paymentDataForm.invalid && step ==1)" class="btn btn-primary btn-sm " href="#" role="button"> Next</button>
-      </div>
-    </div>
-    
-    <ng-template #SubcriptionTmpl>
-      <div class="bg-info text-white-50 text-emphasis-warning p-2">
-        <span class="text-white fs-5 fw-bold text-center"> Selected subcription</span> <br>
-        <span class="badge bg-info">Duration :</span>
-        <span class="badge bg-secondary">{{currentSubs.duration_months}} months </span>
-        |
-        <span class="badge bg-info">Price per gigabytes:</span>
-        <span class="badge bg-secondary">{{currentSubs.price_usd_per_gb| currency}}</span>  <br>
-
-        <!-- <span class="badge bg-info">Amount of gigabytes :</span>
-        <span class="badge bg-secondary">{{subscriptionParamsForm.value.amount_of_gigabytes}} months </span>
-        | -->
-        <span class="badge bg-info">Final price:</span>  <span class="badge bg-black">{{totalPrice| currency}}</span> 
-      </div>
-    </ng-template>
-    
-  </div>
+<div class="col-md-8 mx-auto p-4 py-md-5">
+  <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img"><title>Bootstrap</title><path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path></svg>
+      <span class="fs-4">Test 1 By Didier TAHOBEU: Subscription form</span>
+    </a>
+  </header>
+  <router-outlet></router-outlet>
+  <footer class="pt-5 my-5 text-muted border-top">
+    Created by Didier TAHOBEU &middot; &copy; 2023
+  </footer>
 </div>
+
 
